@@ -1,0 +1,67 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="tr">
+
+    @await Component.InvokeAsync("_DefaultIndexHeadCss")
+<body>
+    <nav class="topnav" aria-label="Ana gezinme">
+        <div class="nav-inner">
+            <a class="brand" href="#top">MASKER</a>
+            <div class="nav-links">
+                <a href="#hakkimda">Hakkımda</a>
+                <a href="#ozgecmis">Özgeçmiş</a>
+                <a href="#hizmetler">Hizmetler</a>
+                <a href="#projeler">Projeler</a>
+                <a href="#referanslar">Referanslar</a>
+                <a href="#iletisim">İletişim</a>
+            </div>
+        </div>
+    </nav>
+
+    <header class="hero" id="top">
+        <canvas id="net" aria-hidden="true"></canvas>
+        <div class="hero-veil" aria-hidden="true"></div>
+        <div class="wrap hero-inner">
+            @await Component.InvokeAsync("_DefaultHero")
+        </div>
+    </header>
+
+    <main>
+        
+        @await Component.InvokeAsync("_DefaultAbout")
+
+        @await Component.InvokeAsync("_DefaultResume") 
+
+        @await Component.InvokeAsync("_DefaultServices")
+
+        @await Component.InvokeAsync("_DefaultProjects")
+
+        @await Component.InvokeAsync("_DefaultTestimonials")
+
+        @await Component.InvokeAsync("_DefaultContact")
+        
+
+    </main>
+
+    <footer class="site-footer">
+        <div class="foot-inner">
+            <span class="serif">MASKER<span style="color:var(--brass)">.</span></span>
+
+        </div>
+    </footer>
+
+    @if (TempData["MessageResult"] as string == "success")
+    {
+        <div class="toast toast-success" role="status">Mesajın alındı. En kısa sürede dönüş yapacağım.</div>
+    }
+    else if (TempData["MessageResult"] as string == "error")
+    {
+        <div class="toast toast-error" role="alert">Mesaj gönderilemedi — tüm alanları doldurduğundan emin ol.</div>
+    }
+
+    @await Component.InvokeAsync("_DefaultScript")
+</body>
+</html>

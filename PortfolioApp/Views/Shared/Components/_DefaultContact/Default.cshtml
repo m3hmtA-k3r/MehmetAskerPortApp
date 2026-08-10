@@ -1,0 +1,71 @@
+﻿@using PortfolioApp.Data.Entities
+@model ContactInfo
+
+<section class="block" id="iletisim">
+    <div class="wrap">
+        <div class="contact-grid">
+            <div class="contact-info reveal">
+                <span class="mono">İletişim</span>
+                <h2>Aklında bir proje mi var? <em>Konuşalım.</em></h2>
+                <p>Yeni işlere ve iş birliklerine açığım. Formu doldur ya da doğrudan ulaş.</p>
+                @if (Model != null)
+                {
+                    <div class="info-list">
+                        <a href="mailto:@Model.Email">@Model.Email</a>
+                        <span>@Model.Address</span>
+                        <a href="@Model.LinkedinUrl" target="_blank" rel="noopener">LinkedIn →</a>
+                        <a href="@Model.GithubUrl" target="_blank" rel="noopener">GitHub →</a>
+                    </div>
+                }
+            </div>
+            <form id="contact-form" class="form-stack reveal" asp-controller="Default" asp-action="SendMesaj" method="post">
+
+                <div>
+                    <label for="msg-name">Adın</label>
+                    <input id="msg-name" name="Name" type="text" required maxlength="100" />
+                </div>
+                <div>
+                    <label for="msg-email">E-posta</label>
+                    <input id="msg-email" name="Email" type="email" required maxlength="150" />
+                </div>
+                <div>
+                    <label for="msg-body">Mesajın</label>
+                    <textarea id="msg-body" name="MessageBody" required maxlength="2000"></textarea>
+                </div>
+                <button class="btn btn-solid" type="submit">Mesajı gönder</button>
+
+            </form>
+        </div>
+    </div>
+</section>
+
+
+<script>
+    document.getElementById('contact-form').addEventListener('submit', async function (e) {
+        e.preventDefault(); // normal gönderimi durdur — sayfa yerinde kalacak
+
+        var form = e.target;
+        var btn = form.querySelector('button[type=submit]');
+        btn.disabled = true; // çifte tıklamayla mükerrer kayıt olmasın
+
+        try {
+            var res = await fetch(form.action, { method: 'POST', body: new FormData(form) });
+            showToast(res.ok);
+            if (res.ok) form.reset();
+        } catch {
+            showToast(false);
+        } finally {
+            btn.disabled = false;
+        }
+    });
+
+    function showToast(ok) {
+        var t = document.createElement('div');
+        t.className = 'toast ' + (ok ? 'toast-success' : 'toast-error');
+        t.textContent = ok
+            ? 'Mesajın alındı. En kısa sürede dönüş yapacağım.'
+            : 'Mesaj gönderilemedi — tüm alanları doldurduğundan emin ol.';
+        document.body.appendChild(t);
+        setTimeout(function () { t.remove(); }, 4600);
+    }
+</script>

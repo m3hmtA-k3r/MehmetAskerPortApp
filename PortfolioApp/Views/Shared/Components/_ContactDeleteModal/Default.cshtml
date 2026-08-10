@@ -1,0 +1,28 @@
+﻿@*
+    Contact Delete Modal
+*@
+
+<div id="delete-modal" class="fixed inset-0 z-50 hidden items-center justify-center bg-black/60">
+    <div class="bg-surface-container rounded-2xl border border-outline/30 shadow-2xl p-6 w-full max-w-sm mx-4">
+        <div class="flex items-center gap-3 mb-4">
+            <div class="flex items-center justify-center w-10 h-10 rounded-xl bg-error/10">
+                <span class="material-symbols-outlined text-error">warning</span>
+            </div>
+            <h3 class="font-title-md text-title-md text-on-surface">Delete</h3>
+        </div>
+        <p class="font-body-md text-body-md text-on-surface-variant mb-6">
+            <span id="delete-name" class="text-on-surface font-medium"></span>
+            Are you sure you want to delete the record? This action is irreversible.
+        </p>
+        <div class="flex gap-3 justify-end">
+            <button onclick="closeDeleteModal()"
+                    class="px-4 py-2 rounded-xl text-on-surface-variant hover:bg-surface-variant font-label-lg text-label-lg transition-all duration-200">
+                Cancel
+            </button>
+            <a id="delete-confirm-btn" href="#"
+               class="px-4 py-2 rounded-xl bg-error text-white hover:brightness-110 active:scale-95 font-label-lg text-label-lg transition-all duration-200">
+                Yes, Delete
+            </a>
+        </div>
+    </div>
+</div>

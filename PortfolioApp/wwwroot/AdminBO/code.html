@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Admin Dashboard - Mehmet Asker</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                            "on-primary-container": "#fcf6ff",
+                            "inverse-surface": "#e5e2e1",
+                            "primary-fixed": "#e8deff",
+                            "on-background": "#e5e2e1",
+                            "on-tertiary-container": "#f2fbff",
+                            "surface-variant": "#3D3D3D",
+                            "tertiary-fixed-dim": "#bfc8cc",
+                            "on-tertiary-fixed": "#141d20",
+                            "on-secondary-fixed": "#001e30",
+                            "tertiary": "#bfc8cc",
+                            "surface-container": "#201f1f",
+                            "surface": "#1E1E1E",
+                            "background": "#131313",
+                            "surface-dim": "#131313",
+                            "on-error-container": "#ffdad6",
+                            "on-primary": "#370096",
+                            "error": "#FF5252",
+                            "on-primary-fixed": "#20005f",
+                            "secondary-fixed": "#cae6ff",
+                            "surface-container-high": "#2a2a2a",
+                            "on-secondary-container": "#003f5f",
+                            "on-surface-variant": "#cac3d8",
+                            "surface-container-lowest": "#0e0e0e",
+                            "on-secondary-fixed-variant": "#004b70",
+                            "tertiary-fixed": "#dbe4e8",
+                            "on-tertiary-fixed-variant": "#3f484c",
+                            "primary-container": "#7c4dff",
+                            "inverse-on-surface": "#313030",
+                            "on-tertiary": "#293235",
+                            "surface-container-highest": "#353534",
+                            "on-primary-fixed-variant": "#4f00d0",
+                            "outline": "#444444",
+                            "primary-fixed-dim": "#cdbdff",
+                            "secondary-container": "#00affe",
+                            "on-secondary": "#00344f",
+                            "primary": "#cdbdff",
+                            "secondary": "#8dcdff",
+                            "outline-variant": "#494455",
+                            "on-surface": "#e5e2e1",
+                            "surface-container-low": "#1c1b1b",
+                            "secondary-fixed-dim": "#8dcdff",
+                            "error-container": "#93000a",
+                            "surface-tint": "#cdbdff",
+                            "inverse-primary": "#6833ea",
+                            "surface-bright": "#393939",
+                            "success": "#00E676",
+                            "tertiary-container": "#6b7478",
+                            "on-error": "#690005"
+                    },
+                    "borderRadius": {
+                            "DEFAULT": "0.25rem",
+                            "lg": "0.5rem",
+                            "xl": "0.75rem",
+                            "full": "9999px"
+                    },
+                    "spacing": {
+                            "sidebar-width": "280px",
+                            "sidebar-collapsed": "80px",
+                            "margin-desktop": "32px",
+                            "stack-md": "16px",
+                            "stack-lg": "24px",
+                            "stack-sm": "8px",
+                            "margin-mobile": "16px",
+                            "gutter": "24px"
+                    },
+                    "fontFamily": {
+                            "headline-lg": ["Inter"],
+                            "title-md": ["Inter"],
+                            "display-lg": ["Inter"],
+                            "body-lg": ["Inter"],
+                            "label-lg": ["Inter"],
+                            "body-md": ["Inter"],
+                            "label-md": ["Inter"],
+                            "headline-lg-mobile": ["Inter"],
+                            "title-lg": ["Inter"]
+                    },
+                    "fontSize": {
+                            "headline-lg": ["32px", { "lineHeight": "40px", "fontWeight": "600" }],
+                            "title-md": ["16px", { "lineHeight": "24px", "letterSpacing": "0.15px", "fontWeight": "500" }],
+                            "display-lg": ["57px", { "lineHeight": "64px", "letterSpacing": "-0.25px", "fontWeight": "700" }],
+                            "body-lg": ["16px", { "lineHeight": "24px", "letterSpacing": "0.5px", "fontWeight": "400" }],
+                            "label-lg": ["14px", { "lineHeight": "20px", "letterSpacing": "0.1px", "fontWeight": "500" }],
+                            "body-md": ["14px", { "lineHeight": "20px", "letterSpacing": "0.25px", "fontWeight": "400" }],
+                            "label-md": ["12px", { "lineHeight": "16px", "letterSpacing": "0.5px", "fontWeight": "500" }],
+                            "headline-lg-mobile": ["28px", { "lineHeight": "36px", "fontWeight": "600" }],
+                            "title-lg": ["22px", { "lineHeight": "28px", "fontWeight": "500" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+          font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .material-symbols-outlined.fill {
+            font-variation-settings: 'FILL' 1;
+        }
+        
+        /* Drawer Transition */
+        #navigation-drawer {
+            transition: transform 0.3s ease-in-out;
+        }
+        .drawer-open #navigation-drawer {
+            transform: translateX(0);
+        }
+        .drawer-closed #navigation-drawer {
+            transform: translateX(-100%);
+        }
+        @media (min-width: 768px) {
+            .drawer-closed #navigation-drawer {
+                transform: translateX(0); /* Always open on desktop */
+            }
+        }
+
+        /* Backdrop Transition */
+        #drawer-backdrop {
+            transition: opacity 0.3s ease-in-out;
+        }
+        .drawer-open #drawer-backdrop {
+            opacity: 1;
+            pointer-events: auto;
+        }
+        .drawer-closed #drawer-backdrop {
+            opacity: 0;
+            pointer-events: none;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+
+  </head>
+<body class="bg-background text-on-background min-h-screen flex flex-col md:flex-row drawer-closed">
+<!-- Mobile Drawer Backdrop -->
+<div class="fixed inset-0 bg-black/50 z-40 md:hidden" id="drawer-backdrop" onclick="toggleDrawer()"></div>
+<!-- Navigation Drawer -->
+<nav class="bg-surface-container-low dark:bg-surface-container-low text-primary dark:text-primary font-label-lg text-label-lg h-full w-sidebar-width fixed left-0 top-0 z-50 border-r border-outline shadow-md flex flex-col gap-stack-sm p-4" id="navigation-drawer">
+<!-- Header -->
+<div class="flex items-center gap-4 mb-stack-lg">
+<img class="w-12 h-12 rounded-full object-cover shadow-sm" data-alt="A professional headshot of Mehmet Asker, a system administrator in his late 30s. He is wearing a dark corporate blazer over a crisp, white shirt. The background is a slightly blurred, modern office environment with subtle, cool blue lighting. The lighting on his face is even and bright, conveying competence and approachability. The image uses a modern, corporate aesthetic suitable for an enterprise software avatar." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDL_eyz6ZrWDEnSa06ZvRRrGWKU5sNyo6b6n8AS-AU-m6ruDzVpwHWEAdmLyiEgNxzXDbwcwqETYSWIG8rvYC3kYS0bsKwmdH5IS23y4RKubHc06RQXHo369owc_CuWE9w862aKBv6ilRLGaber2FT1C5ZU6UtBEGBIyjciaZjWo7KNwW2KkwK4V8P5nwiysYyfevNo9lk1o8__4q2rote5zBqFLI058tvdVIh96Iwiv7izz-i-DXA5ffF3hka31QwZn0U6DIjDRVA"/>
+<div>
+<h2 class="font-title-lg text-title-lg text-on-surface dark:text-on-surface">Mehmet Asker</h2>
+<p class="font-label-md text-label-md text-on-surface-variant">System Administrator</p>
+</div>
+</div>
+<!-- Navigation Links -->
+<ul class="flex flex-col gap-2 flex-grow">
+<li>
+<a class="flex items-center gap-4 bg-primary-container text-on-primary-container rounded-full px-4 py-3 relative before:content-[''] before:absolute before:left-0 before:w-1 before:h-6 before:bg-primary before:rounded-full cursor-pointer active:scale-95 transition-all duration-200" href="#">
+<span class="material-symbols-outlined fill" data-weight="fill">dashboard</span>
+                    Dashboard
+                </a>
+</li>
+<li>
+<a class="flex items-center gap-4 text-on-surface-variant hover:bg-surface-variant rounded-full px-4 py-3 cursor-pointer active:scale-95 hover:bg-surface-variant transition-all duration-200" href="#">
+<span class="material-symbols-outlined">content_copy</span>
+                    Content Management
+                </a>
+</li>
+<li>
+<a class="flex items-center gap-4 text-on-surface-variant hover:bg-surface-variant rounded-full px-4 py-3 cursor-pointer active:scale-95 hover:bg-surface-variant transition-all duration-200" href="#">
+<span class="material-symbols-outlined">group</span>
+                    Users
+                </a>
+</li>
+<li>
+<a class="flex items-center gap-4 text-on-surface-variant hover:bg-surface-variant rounded-full px-4 py-3 cursor-pointer active:scale-95 hover:bg-surface-variant transition-all duration-200" href="#">
+<span class="material-symbols-outlined">analytics</span>
+                    Analytics
+                </a>
+</li>
+<li class="mt-auto border-t border-outline pt-2">
+<a class="flex items-center gap-4 text-on-surface-variant hover:bg-surface-variant rounded-full px-4 py-3 cursor-pointer active:scale-95 hover:bg-surface-variant transition-all duration-200" href="#">
+<span class="material-symbols-outlined">settings</span>
+                    Settings
+                </a>
+</li>
+</ul>
+</nav>
+<!-- Main Content Area -->
+<main class="flex-grow flex flex-col md:ml-sidebar-width min-w-0 transition-all duration-300">
+<!-- TopAppBar (Mobile Only) -->
+<header class="bg-surface-container dark:bg-surface-container text-primary dark:text-primary font-title-lg text-title-lg w-full top-0 sticky bg-surface-container-high shadow-sm md:hidden flex justify-between items-center px-margin-mobile h-16 z-30">
+<button class="p-2 -ml-2 text-on-surface-variant hover:bg-surface-variant rounded-full transition-colors active:opacity-80" onclick="toggleDrawer()">
+<span class="material-symbols-outlined">menu</span>
+</button>
+<span class="font-headline-lg-mobile text-headline-lg-mobile text-primary dark:text-primary tracking-tight">AdminPanel</span>
+<img class="w-8 h-8 rounded-full object-cover" data-alt="A small circular avatar placeholder for the mobile top app bar. It features a generic, stylized silhouette of a person in a corporate setting, rendered in crisp, cool blue and dark gray tones to match the dark mode UI aesthetic. The lighting is flat and graphic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA9PnwQ7YoZC8HuLKK2G4WMcMbW6xnoiuqZRn74c4BYN7uNh5qmfEK9oa8OKeqXRp4g64UqJ5qXIV1B0-gFMTnlIR6Hl8D9IKJqfB_zWVby6MqGdVAv7CWWZygafX1mvSDf1F5e10BLm8Ii_elG7oZUq_T5fs1yCxFluJ8srLmZuLI1PyW2iCmb9KZNQqksOrcVTpnLo10uuNUIS1UZ2YlJPUNtM9ePepE64YR556W7FPz3kCJaxayCQtMU54bKIcVcZVQhk5Lqw_I"/>
+</header>
+<!-- Page Content -->
+<div class="p-margin-mobile md:p-margin-desktop flex flex-col gap-stack-lg flex-grow">
+<!-- Greeting -->
+<section class="flex flex-col md:flex-row justify-between items-start md:items-center gap-stack-sm">
+<div>
+<h1 class="font-headline-lg-mobile text-headline-lg-mobile md:font-headline-lg md:text-headline-lg text-on-surface">Welcome back, Mehmet</h1>
+<p class="font-body-md text-body-md text-on-surface-variant mt-1">Here's what's happening with your system today.</p>
+</div>
+<button class="bg-primary-container text-on-primary-container hover:bg-primary hover:text-on-primary transition-colors px-6 py-2 rounded-full font-label-lg text-label-lg shadow-sm flex items-center gap-2">
+<span class="material-symbols-outlined text-[20px]">download</span>
+                    Export Report
+                </button>
+</section>
+<!-- Bento Grid - Summary Cards -->
+<section class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-gutter">
+<!-- Card 1 -->
+<div class="bg-surface-container rounded-xl p-6 shadow-sm border border-outline/30 hover:border-outline/80 transition-colors flex flex-col gap-4 relative overflow-hidden group">
+<div class="absolute -right-4 -top-4 w-24 h-24 bg-primary/5 rounded-full blur-2xl group-hover:bg-primary/10 transition-colors"></div>
+<div class="flex justify-between items-start z-10">
+<div class="p-3 bg-primary/10 text-primary rounded-lg">
+<span class="material-symbols-outlined">group</span>
+</div>
+<span class="bg-success/20 text-success font-label-md text-label-md px-2 py-1 rounded-full flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">trending_up</span> 12%
+                        </span>
+</div>
+<div class="z-10 mt-2">
+<p class="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider">Total Users</p>
+<p class="font-display-lg text-display-lg text-on-surface">24,592</p>
+</div>
+</div>
+<!-- Card 2 -->
+<div class="bg-surface-container rounded-xl p-6 shadow-sm border border-outline/30 hover:border-outline/80 transition-colors flex flex-col gap-4 relative overflow-hidden group">
+<div class="absolute -right-4 -top-4 w-24 h-24 bg-secondary/5 rounded-full blur-2xl group-hover:bg-secondary/10 transition-colors"></div>
+<div class="flex justify-between items-start z-10">
+<div class="p-3 bg-secondary/10 text-secondary rounded-lg">
+<span class="material-symbols-outlined">payments</span>
+</div>
+<span class="bg-success/20 text-success font-label-md text-label-md px-2 py-1 rounded-full flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">trending_up</span> 8.4%
+                        </span>
+</div>
+<div class="z-10 mt-2">
+<p class="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider">Revenue</p>
+<p class="font-display-lg text-display-lg text-on-surface">$128.4K</p>
+</div>
+</div>
+<!-- Card 3 -->
+<div class="bg-surface-container rounded-xl p-6 shadow-sm border border-outline/30 hover:border-outline/80 transition-colors flex flex-col gap-4 relative overflow-hidden group">
+<div class="absolute -right-4 -top-4 w-24 h-24 bg-tertiary/5 rounded-full blur-2xl group-hover:bg-tertiary/10 transition-colors"></div>
+<div class="flex justify-between items-start z-10">
+<div class="p-3 bg-tertiary/10 text-tertiary rounded-lg">
+<span class="material-symbols-outlined">devices</span>
+</div>
+<span class="bg-error/20 text-error font-label-md text-label-md px-2 py-1 rounded-full flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">trending_down</span> 2%
+                        </span>
+</div>
+<div class="z-10 mt-2">
+<p class="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider">Active Sessions</p>
+<p class="font-display-lg text-display-lg text-on-surface">1,842</p>
+</div>
+</div>
+<!-- Card 4 -->
+<div class="bg-surface-container rounded-xl p-6 shadow-sm border border-outline/30 hover:border-outline/80 transition-colors flex flex-col gap-4 relative overflow-hidden group">
+<div class="absolute -right-4 -top-4 w-24 h-24 bg-error/5 rounded-full blur-2xl group-hover:bg-error/10 transition-colors"></div>
+<div class="flex justify-between items-start z-10">
+<div class="p-3 bg-error/10 text-error rounded-lg">
+<span class="material-symbols-outlined">pending_actions</span>
+</div>
+<span class="bg-surface-variant text-on-surface-variant font-label-md text-label-md px-2 py-1 rounded-full">
+                            Stable
+                        </span>
+</div>
+<div class="z-10 mt-2">
+<p class="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider">Pending Tasks</p>
+<p class="font-display-lg text-display-lg text-on-surface">47</p>
+</div>
+</div>
+</section>
+<!-- Main Content Area Grid -->
+<section class="grid grid-cols-1 lg:grid-cols-3 gap-gutter">
+<!-- Recent Activities (Spans 2 columns on desktop) -->
+<div class="lg:col-span-2 bg-surface-container rounded-xl p-6 shadow-sm border border-outline/30 flex flex-col gap-4">
+<div class="flex justify-between items-center mb-2">
+<h3 class="font-title-lg text-title-lg text-on-surface">Recent Activities</h3>
+<button class="text-primary hover:text-primary-fixed transition-colors font-label-md text-label-md">View All</button>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="border-b border-outline/50 font-label-md text-label-md text-on-surface-variant">
+<th class="py-3 px-4 font-medium">User</th>
+<th class="py-3 px-4 font-medium">Action</th>
+<th class="py-3 px-4 font-medium">Status</th>
+<th class="py-3 px-4 font-medium text-right">Time</th>
+</tr>
+</thead>
+<tbody class="font-body-md text-body-md divide-y divide-outline/30">
+<tr class="hover:bg-surface-variant/30 transition-colors group">
+<td class="py-4 px-4 flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-secondary-container text-on-secondary-container flex items-center justify-center font-bold text-xs">AS</div>
+<span class="text-on-surface group-hover:text-primary transition-colors">Alice Smith</span>
+</td>
+<td class="py-4 px-4 text-on-surface-variant">Updated server config</td>
+<td class="py-4 px-4"><span class="bg-success/20 text-success text-xs px-2 py-1 rounded-full">Success</span></td>
+<td class="py-4 px-4 text-right text-on-surface-variant">2 mins ago</td>
+</tr>
+<tr class="hover:bg-surface-variant/30 transition-colors group">
+<td class="py-4 px-4 flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-tertiary-container text-on-tertiary-container flex items-center justify-center font-bold text-xs">JD</div>
+<span class="text-on-surface group-hover:text-primary transition-colors">John Doe</span>
+</td>
+<td class="py-4 px-4 text-on-surface-variant">Failed login attempt</td>
+<td class="py-4 px-4"><span class="bg-error/20 text-error text-xs px-2 py-1 rounded-full">Failed</span></td>
+<td class="py-4 px-4 text-right text-on-surface-variant">15 mins ago</td>
+</tr>
+<tr class="hover:bg-surface-variant/30 transition-colors group">
+<td class="py-4 px-4 flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-primary-container text-on-primary-container flex items-center justify-center font-bold text-xs">EJ</div>
+<span class="text-on-surface group-hover:text-primary transition-colors">Emma Jones</span>
+</td>
+<td class="py-4 px-4 text-on-surface-variant">Created new user role</td>
+<td class="py-4 px-4"><span class="bg-success/20 text-success text-xs px-2 py-1 rounded-full">Success</span></td>
+<td class="py-4 px-4 text-right text-on-surface-variant">1 hour ago</td>
+</tr>
+<tr class="hover:bg-surface-variant/30 transition-colors group">
+<td class="py-4 px-4 flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-surface-variant text-on-surface-variant flex items-center justify-center font-bold text-xs">MR</div>
+<span class="text-on-surface group-hover:text-primary transition-colors">Mike Ross</span>
+</td>
+<td class="py-4 px-4 text-on-surface-variant">Database backup</td>
+<td class="py-4 px-4"><span class="bg-surface-variant text-on-surface-variant text-xs px-2 py-1 rounded-full">Pending</span></td>
+<td class="py-4 px-4 text-right text-on-surface-variant">2 hours ago</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<!-- Secondary Content (System Status) -->
+<div class="bg-surface-container rounded-xl p-6 shadow-sm border border-outline/30 flex flex-col gap-6">
+<h3 class="font-title-lg text-title-lg text-on-surface mb-2">System Status</h3>
+<div class="flex flex-col gap-4">
+<!-- Metric 1 -->
+<div>
+<div class="flex justify-between items-center mb-1">
+<span class="font-label-md text-label-md text-on-surface-variant">CPU Usage</span>
+<span class="font-label-md text-label-md text-on-surface">45%</span>
+</div>
+<div class="w-full bg-surface-variant rounded-full h-1.5">
+<div class="bg-primary h-1.5 rounded-full" style="width: 45%"></div>
+</div>
+</div>
+<!-- Metric 2 -->
+<div>
+<div class="flex justify-between items-center mb-1">
+<span class="font-label-md text-label-md text-on-surface-variant">Memory</span>
+<span class="font-label-md text-label-md text-on-surface">78%</span>
+</div>
+<div class="w-full bg-surface-variant rounded-full h-1.5">
+<div class="bg-secondary h-1.5 rounded-full" style="width: 78%"></div>
+</div>
+</div>
+<!-- Metric 3 -->
+<div>
+<div class="flex justify-between items-center mb-1">
+<span class="font-label-md text-label-md text-on-surface-variant">Storage</span>
+<span class="font-label-md text-label-md text-on-surface">32%</span>
+</div>
+<div class="w-full bg-surface-variant rounded-full h-1.5">
+<div class="bg-tertiary h-1.5 rounded-full" style="width: 32%"></div>
+</div>
+</div>
+</div>
+<div class="mt-auto pt-6 border-t border-outline/30">
+<div class="flex items-center gap-3 bg-surface-variant/50 p-3 rounded-lg border border-outline/50">
+<span class="material-symbols-outlined text-success">check_circle</span>
+<div>
+<p class="font-label-md text-label-md text-on-surface">All systems operational</p>
+<p class="text-[11px] text-on-surface-variant">Last checked 5 mins ago</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+</div>
+<!-- Footer -->
+<footer class="bg-background dark:bg-background text-primary dark:text-primary font-label-md text-label-md w-full py-4 mt-auto border-t border-outline flex flex-col md:flex-row justify-between items-center px-margin-mobile md:px-margin-desktop ml-0">
+<span class="text-on-surface-variant dark:text-on-surface-variant cursor-default mb-2 md:mb-0">© 2024 Mehmet Asker. All rights reserved.</span>
+<div class="flex gap-4">
+<a class="text-on-surface-variant dark:text-on-surface-variant hover:text-primary transition-colors cursor-default" href="#">Privacy Policy</a>
+<a class="text-on-surface-variant dark:text-on-surface-variant hover:text-primary transition-colors cursor-default" href="#">Terms of Service</a>
+</div>
+</footer>
+</main>
+<script>
+        function toggleDrawer() {
+            document.body.classList.toggle('drawer-open');
+            document.body.classList.toggle('drawer-closed');
+        }
+    </script>
+</body></html>

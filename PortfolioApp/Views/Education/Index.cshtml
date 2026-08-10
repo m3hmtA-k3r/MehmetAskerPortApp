@@ -1,0 +1,41 @@
+﻿@using PortfolioApp.Data.Entities
+@model IEnumerable<Education>
+
+@{
+    ViewData["Title"] = "Education";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+@await Component.InvokeAsync("_EducationHeader")
+
+
+@await Component.InvokeAsync("_EducationPageTableList")
+
+@await Component.InvokeAsync("_EducationDeleteModal")
+
+
+
+
+<script>
+    function openEditModal(id) {
+        window.location.href = '/Education/Update/' + id;
+    }
+
+    function confirmDelete(id, name) {
+        document.getElementById('delete-name').textContent = name;
+        document.getElementById('delete-confirm-btn').href = '/Education/Delete/' + id;
+        const modal = document.getElementById('delete-modal');
+        modal.classList.remove('hidden');
+        modal.classList.add('flex');
+    }
+
+    function closeDeleteModal() {
+        const modal = document.getElementById('delete-modal');
+        modal.classList.remove('flex');
+        modal.classList.add('hidden');
+    }
+
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') closeDeleteModal();
+    });
+</script>

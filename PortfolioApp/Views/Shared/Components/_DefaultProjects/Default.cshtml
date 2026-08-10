@@ -1,0 +1,36 @@
+﻿@using PortfolioApp.Data.Entities
+@model List<Project>
+
+@if (Model.Any())
+{
+    <section class="block" id="projeler">
+        <div class="wrap">
+            <div class="sec-head reveal">
+                <span class="mono">Seçili İşler</span>
+                <h2>Her satırı gerçek bir işi çözmek için yazılmış Projeler.</h2>
+            </div>
+            <div class="proj-grid reveal">
+                @foreach (var project in Model)
+                {
+                    <div class="proj-card">
+                        <img src="@project.ImageUrl" alt="@project.Name ekran görüntüsü" loading="lazy" />
+                        <div class="proj-body">
+                            <h3 class="serif">@project.Name</h3>
+                            <p>@project.Description</p>
+                            @if (project.ProjectTexhStacks != null && project.ProjectTexhStacks.Any())
+                            {
+                                <div class="proj-tags">
+                                    @foreach (var pts in project.ProjectTexhStacks)
+                                    {
+                                        <span class="chip">@pts.TechStack.Name</span>
+                                    }
+                                </div>
+                            }
+                            <a class="proj-link" href="@project.GithupUrl" target="_blank" rel="noopener">GitHub'da incele</a>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </section>
+}

@@ -1,0 +1,105 @@
+﻿@*
+    Burası _Navigation Bar kısmı. 
+*@
+
+@{
+    var currentController = ViewContext.RouteData.Values["controller"]?.ToString();
+    string activeClass = "flex items-center gap-4 bg-primary-container text-on-primary-container rounded-full px-4 py-3 relative before:content-[''] before:absolute before:left-0 before:w-1 before:h-6 before:bg-primary before:rounded-full cursor-pointer active:scale-95 transition-all duration-200";
+    string inactiveClass = "flex items-center gap-4 text-on-surface-variant hover:bg-surface-variant rounded-full px-4 py-3 cursor-pointer active:scale-95 hover:bg-surface-variant transition-all duration-200";
+    string activeIcon = "material-symbols-outlined fill";
+    string inactiveIcon = "material-symbols-outlined";
+}
+
+<ul class="flex flex-col gap-2 flex-grow">
+    <li>
+        <a class="@(currentController == "About" ? activeClass : inactiveClass)" href="/About/Index">
+            <span class="@(currentController == "About" ? activeIcon : inactiveIcon)">person</span>
+            About
+        </a>
+    </li>
+    <li>
+        <a class="@(currentController == "Banner" ? activeClass : inactiveClass)" href="/Banner/Index">
+            <span class="@(currentController == "Banner" ? activeIcon : inactiveIcon)">content_copy</span>
+            Banner
+        </a>
+    </li>
+    <li>
+        <a class="@(currentController == "Contact" ? activeClass : inactiveClass)" href="/Contact/Index">
+            <span class="@(currentController == "Contact" ? activeIcon : inactiveIcon)">group</span>
+            Contact
+        </a>
+    </li>
+    <li>
+        <a class="@(currentController == "Education" ? activeClass : inactiveClass)" href="/Education/Index">
+            <span class="@(currentController == "Education" ? activeIcon : inactiveIcon)">analytics</span>
+            Education
+        </a>
+    </li>
+    <li>
+        <a class="@(currentController == "Experience" ? activeClass : inactiveClass)" href="/Experience/Index">
+            <span class="@(currentController == "Experience" ? activeIcon : inactiveIcon)">work</span>
+            Experience
+        </a>
+    </li>
+    <li>
+        <a class="@(currentController == "Project" ? activeClass : inactiveClass)" href="/Project/Index">
+            <span class="@(currentController == "Project" ? activeIcon : inactiveIcon)">folder_code</span>
+            Project
+        </a>
+    </li>
+    <li>
+        <a class="@(currentController == "ProjectTechStack" ? activeClass : inactiveClass)" href="/ProjectTechStack/Index">
+            <span class="@(currentController == "ProjectTechStack" ? activeIcon : inactiveIcon)">terminal</span>
+            ProjectTechStack
+        </a>
+    </li>
+    <li>
+        <a class="@(currentController == "Service" ? activeClass : inactiveClass)" href="/Service/Index">
+            <span class="@(currentController == "Service" ? activeIcon : inactiveIcon)">design_services</span>
+            Service
+        </a>
+    </li>
+    <li>
+        <a class="@(currentController == "Skill" ? activeClass : inactiveClass)" href="/Skill/Index">
+            <span class="@(currentController == "Skill" ? activeIcon : inactiveIcon)">psychology</span>
+            Skill
+        </a>
+    </li>
+    <li>
+        <a class="@(currentController == "TechStack" ? activeClass : inactiveClass)" href="/TechStack/Index">
+            <span class="@(currentController == "TechStack" ? activeIcon : inactiveIcon)">terminal</span>
+            TechStack
+        </a>
+    </li>
+    <li>
+        <a class="@(currentController == "Testimonial" ? activeClass : inactiveClass)" href="/Testimonial/Index">
+            <span class="@(currentController == "Testimonial" ? activeIcon : inactiveIcon)">format_quote</span>
+            Testimonial
+        </a>
+    </li>
+    <li>
+        <a class="@(currentController == "UserMessage" ? activeClass : inactiveClass)" href="/UserMessage/Index">
+            <span class="@(currentController == "UserMessage" ? activeIcon : inactiveIcon)">mail</span>
+            Messages
+        </a>
+    </li>
+    <li class="mt-auto border-t border-outline pt-2">
+        <a class="flex items-center gap-4 text-on-surface-variant hover:bg-surface-variant rounded-full px-4 py-3 cursor-pointer active:scale-95 hover:bg-surface-variant transition-all duration-200"
+           href="javascript:void(0)" onclick="openAdminModal()">
+            <span class="material-symbols-outlined">settings</span>
+            Settings
+        </a>
+    </li>
+
+    <li>
+        <form asp-controller="Auth" asp-action="Logout" method="post">
+            @Html.AntiForgeryToken()
+            <button type="submit"
+                    class="w-full flex items-center gap-4 text-on-surface-variant hover:bg-error/10 hover:text-error rounded-full px-4 py-3 cursor-pointer active:scale-95 transition-all duration-200">
+                <span class="material-symbols-outlined">logout</span>
+                Logout
+            </button>
+        </form>
+    </li>
+
+</ul>

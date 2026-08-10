@@ -1,0 +1,52 @@
+﻿@using PortfolioApp.Models
+@model DefaultResumeViewModel
+
+@if (Model.Experiences.Any() || Model.Educations.Any())
+{
+    <section class="block" id="ozgecmis">
+        <div class="wrap">
+            <div class="sec-head reveal">
+                <span class="mono">Özgeçmiş</span>
+                <h2>Yolculuğun kilometre taşları.</h2>
+            </div>
+            <div class="resume-grid reveal">
+                @if (Model.Experiences.Any())
+                {
+                    <div class="resume-col">
+                        <h3>Deneyim</h3>
+                        <div class="tl">
+                            @foreach (var exp in Model.Experiences)
+                            {
+                                <div class="tl-item">
+                                    <h4>@exp.Title</h4>
+                                    <p class="meta">@exp.Company · @exp.StartYear – @(string.IsNullOrWhiteSpace(exp.EndYear) ? "Devam" : exp.EndYear)</p>
+                                    <p>@exp.Description</p>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                }
+               @*  @if (Model.Educations.Any()) // Bu alanı göremk istemedigim için sadece yorum satırı haline getiriyorum. 
+                {
+                    <div class="resume-col">
+                        <h3>Eğitim</h3>
+                        <div class="tl">
+                            @foreach (var edu in Model.Educations)
+                            {
+                                <div class="tl-item">
+                                    <h4>@edu.SchoolName</h4>
+                                    <p class="meta">@edu.Departman · @edu.StartYear – @(string.IsNullOrWhiteSpace(edu.GradeationYear) ? "Devam" : edu.GradeationYear)</p>
+                                    <p>@edu.Description</p>
+                                    @if (edu.GPA > 0)
+                                    {
+                                        <p class="meta">Not ortalaması: @edu.GPA.ToString("0.00")</p>
+                                    }
+                                </div>
+                            }
+                        </div>
+                    </div>
+                } *@
+            </div>
+        </div>
+    </section>
+}

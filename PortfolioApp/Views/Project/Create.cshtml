@@ -1,0 +1,85 @@
+﻿@using PortfolioApp.Data.Entities
+@model Project
+
+@{
+    ViewData["Title"] = "New Project";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="flex items-center justify-between mb-stack-lg">
+    <div>
+        <h1 class="font-headline-lg-mobile text-headline-lg-mobile md:font-headline-lg md:text-headline-lg text-on-surface">
+            New Project
+        </h1>
+        <p class="font-body-md text-body-md text-on-surface-variant mt-1">
+            Add a new project record.
+        </p>
+    </div>
+    <a href="/Project/Index"
+       class="flex items-center gap-2 text-on-surface-variant hover:text-on-surface px-4 py-2.5 rounded-xl font-label-lg text-label-lg transition-all duration-200">
+        <span class="material-symbols-outlined text-base">arrow_back</span>
+        Back
+    </a>
+</div>
+
+<div class="bg-surface-container rounded-xl border border-outline p-6 max-w-2xl">
+    <form asp-action="Create" method="post" enctype="multipart/form-data" class="flex flex-col gap-stack-md">
+        <div>
+            <label class="block font-label-lg text-label-lg text-on-surface-variant mb-1.5" for="Name">Project Name</label>
+            <input type="text" id="Name" name="Name" value="@Model?.Name"
+                   class="w-full bg-surface-container-low border border-outline rounded-xl px-4 py-2.5 text-on-surface font-body-md text-body-md focus:outline-none focus:ring-2 focus:ring-primary" />
+            <span asp-validation-for="Name" class="text-error font-label-md text-label-md"></span>
+        </div>
+
+        <div>
+            <label class="block font-label-lg text-label-lg text-on-surface-variant mb-1.5" for="Description">Description (max 100 characters)</label>
+            <textarea id="Description" name="Description" rows="4" maxlength="100"
+                      class="w-full bg-surface-container-low border border-outline rounded-xl px-4 py-2.5 text-on-surface font-body-md text-body-md focus:outline-none focus:ring-2 focus:ring-primary">@Model?.Description</textarea>
+            <span asp-validation-for="Description" class="text-error font-label-md text-label-md"></span>
+        </div>
+
+        <div>
+            <label class="block font-label-lg text-label-lg text-on-surface-variant mb-1.5" for="GithupUrl">GitHub URL</label>
+            <input type="text" id="GithupUrl" name="GithupUrl" value="@Model?.GithupUrl"
+                   class="w-full bg-surface-container-low border border-outline rounded-xl px-4 py-2.5 text-on-surface font-body-md text-body-md focus:outline-none focus:ring-2 focus:ring-primary" />
+            <span asp-validation-for="GithupUrl" class="text-error font-label-md text-label-md"></span>
+        </div>
+
+        <div>
+            <label class="block font-label-lg text-label-lg text-on-surface-variant mb-1.5">Image</label>
+            <label for="ImageFile"
+                   class="flex items-center gap-3 w-full bg-surface-container-low border border-dashed border-outline rounded-xl px-4 py-3 text-on-surface-variant font-body-md text-body-md cursor-pointer hover:border-primary hover:text-on-surface transition-colors duration-200">
+                <span class="material-symbols-outlined text-base">upload</span>
+                <span id="file-chosen-text">Click to select an image</span>
+            </label>
+            <input type="file" id="ImageFile" name="ImageFile" accept="image/*" class="hidden"
+                   onchange="document.getElementById('file-chosen-text').textContent = this.files[0]?.name || 'Click to select an image'" />
+            <span asp-validation-for="ImageUrl" class="text-error font-label-md text-label-md"></span>
+        </div>
+
+        <div>
+            <label class="block font-label-lg text-label-lg text-on-surface-variant mb-1.5">Tech Stacks</label>
+            <div class="flex flex-wrap gap-2">
+                @foreach (var techStack in (List<TechStack>)ViewBag.TechStacks)
+                {
+                    <label class="flex items-center gap-2 bg-surface-container-low border border-outline rounded-xl px-3 py-2 cursor-pointer hover:border-primary transition-colors">
+                        <input type="checkbox" name="TechStackIds" value="@techStack.Id" class="accent-primary" />
+                        <span class="font-body-md text-body-md text-on-surface">@techStack.Name</span>
+                    </label>
+                }
+            </div>
+        </div>
+
+
+        <div class="flex gap-3 justify-end mt-2">
+            <a href="/Project/Index"
+               class="px-4 py-2.5 rounded-xl text-on-surface-variant hover:bg-surface-variant font-label-lg text-label-lg transition-all duration-200">
+                Cancel
+            </a>
+            <button type="submit"
+                    class="px-4 py-2.5 rounded-xl bg-primary-container text-on-primary-container hover:opacity-90 active:scale-95 font-label-lg text-label-lg transition-all duration-200">
+                Save
+            </button>
+        </div>
+    </form>
+</div>

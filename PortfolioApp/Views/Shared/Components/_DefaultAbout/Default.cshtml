@@ -1,0 +1,28 @@
+﻿@using PortfolioApp.Models
+@model DefaultAboutViewModel
+
+@if (Model.About != null)
+{
+    <section class="block" id="hakkimda">
+        <div class="wrap">
+            <div class="about-grid reveal">
+                <img class="about-photo" src="@Model.About.ImageUrl" alt="Mehmet Asker portre fotoğrafı" />
+                <div class="about-text">
+                    <span class="mono">Hakkımda</span>
+                    <h2>@Model.About.Title</h2>
+                    <p>@Model.About.Description</p>
+
+                    @if (Model.Skills.Any())
+                    {
+                        <div class="skill-row">
+                            @foreach (var skill in Model.Skills)
+                            {
+                                <span class="chip">@skill.Name</span>
+                            }
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </section>
+}

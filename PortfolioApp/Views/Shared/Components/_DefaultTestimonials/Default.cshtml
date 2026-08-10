@@ -1,0 +1,31 @@
+﻿@using PortfolioApp.Data.Entities
+@model List<Testimonial>
+
+@if (Model.Any())
+{
+    <section class="block" id="referanslar">
+        <div class="wrap">
+            <div class="sec-head reveal">
+                <span class="mono">Referanslar</span>
+                <h2>Birlikte çalıştıklarım ne diyor?</h2>
+            </div>
+            <div class="testi-grid reveal">
+                @foreach (var t in Model)
+                {
+                    var rating = Math.Clamp(t.Rating, 0, 5);
+                    <div class="testi">
+                        <span class="stars" aria-label="@rating / 5 yıldız">@(new string('★', rating))@(new string('☆', 5 - rating))</span>
+                        <blockquote>"@t.Comment"</blockquote>
+                        <div class="testi-person">
+                            <span class="avatar">@t.Initials</span>
+                            <div>
+                                <strong>@t.FirstName @t.LastName</strong>
+                                <span>@t.Title</span>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </section>
+}

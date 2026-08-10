@@ -1,0 +1,123 @@
+﻿@using PortfolioApp.Models
+@model DashboardViewModel
+
+@{
+    ViewData["Title"] = "Dashboard";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<style>
+    @@keyframes fadeInUp {
+        from { opacity: 0; transform: translateY(12px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+    .stat-card {
+        opacity: 0;
+        animation: fadeInUp 0.5s ease-out forwards;
+    }
+</style>
+
+<!-- Karşılama -->
+<div class="mb-stack-lg">
+    <h1 class="font-headline-lg-mobile text-headline-lg-mobile md:font-headline-lg md:text-headline-lg text-on-surface">
+        Admin Dashboard Sayfasına Hoşgeldin
+    </h1>
+</div>
+
+<!-- İstatistik Cardları -->
+<section class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-gutter mb-stack-lg">
+    <div class="stat-card bg-surface-container rounded-xl p-6 shadow-sm border border-outline/30 flex flex-col gap-4" style="animation-delay: 0.05s;">
+        <div class="p-3 bg-primary/10 text-primary rounded-lg w-fit">
+            <span class="material-symbols-outlined">mail</span>
+        </div>
+        <div>
+            <p class="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider">Total Messages</p>
+            <p class="font-display-lg text-display-lg text-on-surface stat-number" data-count-target="@Model.MessageCount">0</p>
+            @if (Model.UnreadMessageCount > 0)
+            {
+                <span class="inline-flex items-center gap-1 mt-1 bg-error/10 text-error font-label-md text-label-md px-2 py-0.5 rounded-full">
+                    @Model.UnreadMessageCount unread
+                </span>
+            }
+        </div>
+    </div>
+
+    <div class="stat-card bg-surface-container rounded-xl p-6 shadow-sm border border-outline/30 flex flex-col gap-4" style="animation-delay: 0.15s;">
+        <div class="p-3 bg-secondary/10 text-secondary rounded-lg w-fit">
+            <span class="material-symbols-outlined">work</span>
+        </div>
+        <div>
+            <p class="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider">Experience</p>
+            <p class="font-display-lg text-display-lg text-on-surface stat-number" data-count-target="@Model.ExperienceCount">0</p>
+        </div>
+    </div>
+
+    <div class="stat-card bg-surface-container rounded-xl p-6 shadow-sm border border-outline/30 flex flex-col gap-4" style="animation-delay: 0.25s;">
+        <div class="p-3 bg-tertiary/10 text-tertiary rounded-lg w-fit">
+            <span class="material-symbols-outlined">folder_code</span>
+        </div>
+        <div>
+            <p class="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider">Projects</p>
+            <p class="font-display-lg text-display-lg text-on-surface stat-number" data-count-target="@Model.ProjectCount">0</p>
+        </div>
+    </div>
+</section>
+
+<!--    Projeleri burada geleley -->
+<section class="stat-card bg-surface-container rounded-xl p-6 shadow-sm border border-outline/30 flex flex-col gap-4" style="animation-delay: 0.35s;">
+    <h3 class="font-title-lg text-title-lg text-on-surface">Recent Projects</h3>
+    @if (Model.RecentProjects != null && Model.RecentProjects.Any())
+    {
+        <div class="overflow-x-auto">
+            <table class="w-full text-left border-collapse">
+                <thead>
+                    <tr class="border-b border-outline/50 font-label-md text-label-md text-on-surface-variant">
+                        <th class="py-3 px-4 font-medium">Image</th>
+                        <th class="py-3 px-4 font-medium">Name</th>
+                        <th class="py-3 px-4 font-medium">Description</th>
+                    </tr>
+                </thead>
+                <tbody class="font-body-md text-body-md divide-y divide-outline/30">
+                    <!--  Projeleri Getirir -->
+                    @foreach (var project in Model.RecentProjects)
+                    {
+                        <tr class="hover:bg-surface-variant/30 transition-colors">
+                            <td class="py-3 px-4">
+                                <img src="@project.ImageUrl" class="w-10 h-10 rounded-lg object-cover border border-outline/30" />
+                            </td>
+                            <td class="py-3 px-4 text-on-surface">@project.Name</td>
+                            <td class="py-3 px-4 text-on-surface-variant max-w-xs">
+                                <span class="line-clamp-1">@project.Description</span>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
+    else
+    {
+        <p class="font-body-md text-body-md text-on-surface-variant">Henüz proje eklenmemiş.</p>
+    }
+</section>
+
+<script>
+    document.querySelectorAll('.stat-number').forEach(function (el) {
+        var target = parseInt(el.getAttribute('data-count-target'), 10) || 0;
+        var current = 0;
+        var duration = 800;
+        var stepTime = 16;
+        var steps = duration / stepTime;
+        var increment = target / steps;
+
+        var timer = setInterval(function () {
+            current += increment;
+            if (current >= target) {
+                el.textContent = target;
+                clearInterval(timer);
+            } else {
+                el.textContent = Math.floor(current);
+            }
+        }, stepTime);
+    });
+</script>

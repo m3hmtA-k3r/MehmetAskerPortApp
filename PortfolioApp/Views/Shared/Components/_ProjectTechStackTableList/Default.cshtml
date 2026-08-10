@@ -1,0 +1,79 @@
+﻿@using PortfolioApp.Data.Entities
+@model IEnumerable<ProjectTechStack>
+
+@{
+    var grouped = (Model ?? Enumerable.Empty<ProjectTechStack>())
+        .Where(x => x.Project != null)
+        .GroupBy(x => x.Project)
+        .ToList();
+}
+
+<div class="bg-surface-container rounded-xl border border-outline overflow-hidden">
+    <div class="overflow-x-auto">
+        <table class="w-full">
+            <thead>
+                <tr class="border-b border-outline bg-surface-container-high">
+                    <th class="text-left px-4 py-3 font-label-lg text-label-lg text-on-surface-variant uppercase tracking-wider">Project</th>
+                    <th class="text-left px-4 py-3 font-label-lg text-label-lg text-on-surface-variant uppercase tracking-wider">TechStacks</th>
+                    <th class="text-center px-4 py-3 font-label-lg text-label-lg text-on-surface-variant uppercase tracking-wider">Add</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (grouped.Any())
+                {
+                    foreach (var group in grouped)
+                    {
+                        <tr class="border-b border-outline hover:bg-surface-container-high transition-colors duration-150">
+                            <td class="px-4 py-3 font-body-md text-body-md text-on-surface font-medium align-top">@group.Key?.Name</td>
+
+                            <td class="px-4 py-3">
+                                <div class="flex flex-wrap gap-2">
+                                    @foreach (var link in group)
+                                    {
+                                        <span class="inline-flex items-center gap-1 bg-secondary-container/20 text-secondary pl-2.5 pr-1 py-1 rounded-full font-label-md text-label-md">
+                                            @link.TechStack?.Name
+                                            <button type="button" onclick="openEditModal(@link.Id)"
+                                                    class="flex items-center justify-center w-5 h-5 rounded-full hover:bg-secondary/20 transition-colors">
+                                                <span class="material-symbols-outlined text-[14px]">edit</span>
+                                            </button>
+                                            <button type="button" onclick="confirmDelete(@link.Id, '@group.Key?.Name - @link.TechStack?.Name')"
+                                                    class="flex items-center justify-center w-5 h-5 rounded-full hover:bg-error/20 hover:text-error transition-colors">
+                                                <span class="material-symbols-outlined text-[14px]">close</span>
+                                            </button>
+                                        </span>
+                                    }
+                                </div>
+                            </td>
+
+                            <td class="px-4 py-3 text-center align-top">
+                                <a href="/ProjectTechStack/Create" class="text-primary hover:underline font-label-md text-label-md">+ Add</a>
+                            </td>
+                        </tr>
+                    }
+                }
+                else
+                {
+                    <tr>
+                        <td colspan="3" class="px-4 py-16 text-center">
+                            <span class="material-symbols-outlined text-5xl text-on-surface-variant block mb-2 opacity-40">inbox</span>
+                            <p class="font-body-md text-body-md text-on-surface-variant">No registration yet.</p>
+                            <a href="/ProjectTechStack/Create" class="mt-4 inline-flex items-center gap-1.5 text-primary font-label-lg text-label-lg hover:underline">
+                                <span class="material-symbols-outlined text-base">add</span>
+                                New Add
+                            </a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+    @if (grouped.Any())
+    {
+        <div class="px-4 py-3 border-t border-outline/20 bg-surface-container-low">
+            <span class="font-label-md text-label-md text-on-surface-variant">
+                Total of <span class="text-on-surface font-medium">@grouped.Count()</span> project(s) with tech stacks
+            </span>
+        </div>
+    }
+</div>

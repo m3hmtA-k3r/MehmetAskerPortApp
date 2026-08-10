@@ -1,0 +1,77 @@
+﻿<!DOCTYPE html>
+
+<html class="dark" lang="en" translate="no">
+
+
+    @await Component.InvokeAsync("_BoLayOutHead")
+
+<body class="bg-background text-on-background min-h-screen flex flex-col md:flex-row drawer-closed">
+    <!-- Mobile Drawer Backdrop -->
+    <div class="fixed inset-0 bg-black/50 z-40 md:hidden" id="drawer-backdrop" onclick="toggleDrawer()"></div>
+    <!-- Navigation Drawer -->
+    <nav class="bg-surface-container-low dark:bg-surface-container-low text-primary dark:text-primary font-label-lg text-label-lg h-full w-sidebar-width fixed left-0 top-0 z-50 border-r border-outline shadow-md flex flex-col gap-stack-sm p-4 overflow-y-auto" id="navigation-drawer">
+        
+        <!-- Header -->
+        @await Component.InvokeAsync("_HeaderProfile")
+
+        <!-- Navigation Links -->
+        @await Component.InvokeAsync("_Navigation")
+    </nav>
+    <!-- Main Content Area -->
+    <main class="flex-grow flex flex-col md:ml-sidebar-width min-w-0 transition-all duration-300">
+
+        <!-- TopAppBar (Mobile Only) -->
+        @await Component.InvokeAsync("_TopAppBarHeaderMobil")
+
+        <!-- Page Content -->
+        <div class="p-margin-mobile md:p-margin-desktop flex flex-col gap-stack-lg flex-grow">
+            @RenderBody()
+        </div>
+
+        <!-- Footer -->
+        @await Component.InvokeAsync("_Footer")
+    </main>
+    <!-- Settings Modal -->
+    <div id="admin-settings-modal" class="fixed inset-0 z-50 hidden items-center justify-center bg-black/60">
+        <div class="bg-surface-container rounded-2xl border border-outline/30 shadow-2xl w-full max-w-4xl h-[85vh] mx-4 flex flex-col overflow-hidden">
+            <div class="flex items-center justify-between px-6 py-4 border-b border-outline/20">
+                <h3 class="font-title-md text-title-md text-on-surface">Settings</h3>
+                <button onclick="closeAdminModal()" class="text-on-surface-variant hover:text-on-surface">
+                    <span class="material-symbols-outlined">close</span>
+                </button>
+            </div>
+
+
+            <div class="flex-grow overflow-y-auto p-6 flex flex-col items-center justify-center text-center">
+                <div class="flex items-center justify-center w-16 h-16 rounded-2xl bg-primary-container/10 mb-4">
+                    <span class="material-symbols-outlined text-primary text-3xl">construction</span>
+                </div>
+                <h4 class="font-title-md text-title-md text-on-surface mb-2">Yakında burada</h4>
+                <p class="font-body-md text-body-md text-on-surface-variant max-w-sm">
+                    Bu alanı gelecekte ayarlamak için hazır bekletmek için yaptım.
+                </p>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        function toggleDrawer() {
+            document.body.classList.toggle('drawer-open');
+            document.body.classList.toggle('drawer-closed');
+        }
+
+        function openAdminModal() {
+            const modal = document.getElementById('admin-settings-modal');
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+        }
+
+        function closeAdminModal(){
+             const modal = document.getElementById('admin-settings-modal');
+             modal.classList.remove('flex');
+             modal.classList.add('hidden');
+        }
+    </script>
+</body>
+</html>

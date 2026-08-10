@@ -1,0 +1,17 @@
+﻿@using PortfolioApp.Data.Entities
+@model About
+
+@*
+  ADmin Sayfasında Profil ve isim soy isim bilgisinin oldugu yer. 
+*@
+
+<a asp-controller="Home" asp-action="Dashboard"
+   class="flex items-center gap-4 mb-stack-lg hover:opacity-80 active:scale-95 transition-all duration-200">
+    <img class="w-12 h-12 rounded-full object-cover shadow-sm"
+         src="@Model?.ImageUrl"
+         alt="@Model?.Title" />
+    <div>
+        <h2 class="font-title-lg text-title-lg text-on-surface dark:text-on-surface">@Model?.Title</h2>
+        <p class="font-label-md text-label-md text-on-surface-variant">System Administrator</p>
+    </div>
+</a>

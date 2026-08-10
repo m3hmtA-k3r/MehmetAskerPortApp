@@ -1,0 +1,43 @@
+﻿@using PortfolioApp.Data.Entities
+@model IEnumerable<Banner>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<!--Sayfa tanıtım-->
+@await Component.InvokeAsync("_BannerPageHeader")
+
+<!--Tablo liste -->
+@await Component.InvokeAsync("_BannerPageTableList")
+
+
+
+<!--DeleteModel-->
+@await Component.InvokeAsync("_BannerDeleteModel")
+
+
+<script>
+    function openEditModal(id) {
+        window.location.href = '/Banner/Update/' + id;
+    }
+
+    function confirmDelete(id, name) {
+        document.getElementById('delete-name').textContent = name;
+        document.getElementById('delete-confirm-btn').href = '/Banner/Delete/' + id;
+        const modal = document.getElementById('delete-modal');
+        modal.classList.remove('hidden');
+        modal.classList.add('flex');
+    }
+
+    function closeDeleteModal() {
+        const modal = document.getElementById('delete-modal');
+        modal.classList.remove('flex');
+        modal.classList.add('hidden');
+    }
+
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') closeDeleteModal();
+    });
+</script>

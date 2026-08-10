@@ -1,0 +1,40 @@
+﻿@using PortfolioApp.Data.Entities
+@model IEnumerable<ContactInfo>
+
+@{
+    ViewData["Title"] = "Contact Info";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+@await Component.InvokeAsync("_ContactHeader")
+
+@await Component.InvokeAsync("_ContactTableList")
+
+
+@await Component.InvokeAsync("_ContactDeleteModal")
+
+
+
+<script>
+    function openEditModal(id) {
+        window.location.href = '/Contact/Update/' + id;
+    }
+
+    function confirmDelete(id, name) {
+        document.getElementById('delete-name').textContent = name;
+        document.getElementById('delete-confirm-btn').href = '/Contact/Delete/' + id;
+        const modal = document.getElementById('delete-modal');
+        modal.classList.remove('hidden');
+        modal.classList.add('flex');
+    }
+
+    function closeDeleteModal() {
+        const modal = document.getElementById('delete-modal');
+        modal.classList.remove('flex');
+        modal.classList.add('hidden');
+    }
+
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') closeDeleteModal();
+    });
+</script>

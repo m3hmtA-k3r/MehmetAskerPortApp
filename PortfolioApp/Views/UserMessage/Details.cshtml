@@ -1,0 +1,20 @@
+﻿@using PortfolioApp.Data.Entities
+@model UserMessage
+
+<div class="bg-surface-container rounded-xl border border-outline p-8 min-h-[280px]">
+
+    <div class="flex items-center justify-between pb-4 mb-4 border-b border-outline/30">
+        <div>
+            <p class="font-title-md text-title-md text-on-surface">@Model.Name</p>
+            <a href="mailto:@Model.Email" class="font-body-md text-body-md text-on-surface-variant hover:text-primary hover:underline">
+                @Model.Email
+            </a>
+        </div>
+        <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-surface-variant text-on-surface-variant font-label-md text-label-md">
+            <span class="material-symbols-outlined text-sm">drafts</span>
+            Read
+        </span>
+    </div>
+
+    <p class="font-body-lg text-body-lg text-on-surface whitespace-pre-line">@Model.MessageBody</p>
+</div>

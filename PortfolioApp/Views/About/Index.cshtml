@@ -1,0 +1,41 @@
+﻿@using PortfolioApp.Data.Entities
+@model IEnumerable<About>
+
+@{
+    ViewData["Title"] = "About";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<!--About Header Tanıtım için -->
+@await Component.InvokeAsync("_AboutHeadTable")
+
+<!-- Tablo Card -->
+@await Component.InvokeAsync("_AboutCardTable")
+
+<!-- About saysasında Silme Onayı Modalı -->
+@await Component.InvokeAsync("_AboutDelete")
+
+
+<script>
+    function openEditModal(id) {
+        window.location.href = '/About/Update/' + id;
+    }
+
+    function confirmDelete(id, name) {
+        document.getElementById('delete-name').textContent = name;
+        document.getElementById('delete-confirm-btn').href = '/About/Delete/' + id;
+        const modal = document.getElementById('delete-modal');
+        modal.classList.remove('hidden');
+        modal.classList.add('flex');
+    }
+
+    function closeDeleteModal() {
+        const modal = document.getElementById('delete-modal');
+        modal.classList.remove('flex');
+        modal.classList.add('hidden');
+    }
+
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') closeDeleteModal();
+    });
+</script>

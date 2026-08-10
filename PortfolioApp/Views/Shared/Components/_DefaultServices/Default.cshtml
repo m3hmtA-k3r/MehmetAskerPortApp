@@ -1,0 +1,24 @@
+﻿@using PortfolioApp.Data.Entities
+@model List<Service>
+
+@if (Model.Any())
+{
+    <section class="block" id="hizmetler">
+        <div class="wrap">
+            <div class="sec-head reveal">
+                <span class="mono">Hizmetler</span>
+                <h2>Ne yapıyorum?</h2>
+            </div>
+            <div class="svc-grid reveal">
+                @foreach (var service in Model)
+                {
+                    <div class="svc">
+                        <span class="material-symbols-outlined">@service.Icon</span>
+                        <h3>@service.Title</h3>
+                        <p>@service.Description</p>
+                    </div>
+                }
+            </div>
+        </div>
+    </section>
+}

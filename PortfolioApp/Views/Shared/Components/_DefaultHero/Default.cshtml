@@ -1,0 +1,19 @@
+﻿@using PortfolioApp.Data.Entities
+@model Banner
+
+@if (Model != null)
+{
+    <span class="mono">Full Stack Developer</span>
+    <h1 class="serif">@Model.Title</h1>
+    <p class="lede">@Model.Description</p>
+    <div class="cta-row">
+        <a class="btn btn-solid" href="#projeler">Projelere bak</a>
+        <a class="btn btn-ghost" href="#iletisim">İletişime geç</a>
+    </div>
+}
+else
+{
+    <span class="mono">Yazılım Geliştirici</span>
+    <h1 class="serif">Hoş geldin — <em>içerik yolda.</em></h1>
+    <p class="lede">Admin panelden bir Banner kaydı eklediğinde bu alan otomatik dolacak.</p>
+}
