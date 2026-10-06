@@ -4,6 +4,10 @@
 @if (Model != null)
 {
     <span class="mono">Full Stack Developer</span>
+    if (!string.IsNullOrEmpty(Model.ImageUrl))
+    {
+        <img src="@Model.ImageUrl" alt="@Model.Title" class="hero-photo" />
+    }
     <h1 class="serif">@Model.Title</h1>
     <p class="lede">@Model.Description</p>
     <div class="cta-row">
